@@ -49,12 +49,20 @@
         .bio-container::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
         .bio{font-size:1.2rem;color:var(--text-dim);line-height:1.6}
         
-        .stats-container{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin:2rem 0;padding:2rem;background:var(--glass);border:1px solid var(--border);border-radius:12px;backdrop-filter:blur(10px);animation:fadeUp 1s ease-out .7s both}
+        .stats-container{margin:2rem 0;padding:2rem;background:var(--glass);border:1px solid var(--border);border-radius:12px;backdrop-filter:blur(10px);animation:fadeUp 1s ease-out .7s both}
+        .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .section-title{font-size:1.5rem;font-weight:600;color:var(--accent);margin-bottom:1.5rem;text-align:center}
         .stat-item{text-align:center}
         .stat-value{font-size:2rem;font-weight:600;color:var(--accent);margin-bottom:.5rem}
         .stat-label{font-size:.9rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px}
         
-        .skills-toggle{background:var(--glass);border:1px solid var(--border);border-radius:12px;margin:2rem 0;backdrop-filter:blur(10px);position:relative;overflow:hidden;animation:fadeUp 1s ease-out .8s both;cursor:pointer;transition:all .3s ease}
+        .quote-section{margin:2rem 0;animation:fadeUp 1s ease-out .8s both}
+        .quote-container{text-align:center;padding:2rem;background:var(--glass);border:1px solid var(--border);border-radius:12px;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+        .quote-container::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+        .quote{font-size:1.3rem;font-style:italic;color:var(--text);margin-bottom:1rem;line-height:1.6}
+        .quote-author{font-size:1rem;color:var(--accent);font-weight:500}
+        
+        .skills-toggle{background:var(--glass);border:1px solid var(--border);border-radius:12px;margin:2rem 0;backdrop-filter:blur(10px);position:relative;overflow:hidden;animation:fadeUp 1s ease-out .9s both;cursor:pointer;transition:all .3s ease}
         .skills-toggle:hover{border-color:var(--accent);transform:translateY(-2px)}
         .skills-toggle::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
         
@@ -110,8 +118,8 @@
         .zenn:hover svg{animation:bounce 1s ease}
 
         @media(min-width:1024px){.social{gap:2.5rem}.social-item{width:90px;height:90px;font-size:2.2rem}}
-        @media(max-width:768px){.name{font-size:2.5rem}.bio{font-size:1.1rem}.social{gap:1.5rem}.social-item{width:70px;height:70px;font-size:1.8rem}.bio-container{padding:1.5rem}.skills-header{padding:1.2rem 1.5rem}.skills-grid{padding:0 1.5rem 1.5rem}.stats-container{grid-template-columns:repeat(3,1fr);gap:1rem;padding:1.5rem}.stat-value{font-size:1.5rem}}
-        @media(max-width:480px){.container{padding:1rem}.avatar{width:100px;height:100px;font-size:2.5rem}.name{font-size:2rem}.bio{font-size:1rem}.bio-container{padding:1.2rem}.skills-header{padding:1rem 1.2rem}.skills-grid{padding:0 1.2rem 1.2rem}.social{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:240px;margin:0 auto}.social-item{width:60px;height:60px;font-size:1.5rem}.stats-container{grid-template-columns:1fr;gap:1rem;padding:1.2rem}.stat-value{font-size:1.2rem}}
+        @media(max-width:768px){.name{font-size:2.5rem}.bio{font-size:1.1rem}.social{gap:1.5rem}.social-item{width:70px;height:70px;font-size:1.8rem}.bio-container{padding:1.5rem}.skills-header{padding:1.2rem 1.5rem}.skills-grid{padding:0 1.5rem 1.5rem}.stats-grid{grid-template-columns:repeat(3,1fr);gap:1rem}.stats-container{padding:1.5rem}.stat-value{font-size:1.5rem}.quote-section{margin:1.5rem 0}.quote{font-size:1.1rem}}
+        @media(max-width:480px){.container{padding:1rem}.avatar{width:100px;height:100px;font-size:2.5rem}.name{font-size:2rem}.bio{font-size:1rem}.bio-container{padding:1.2rem}.skills-header{padding:1rem 1.2rem}.skills-grid{padding:0 1.2rem 1.2rem}.social{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:240px;margin:0 auto}.social-item{width:60px;height:60px;font-size:1.5rem}.stats-grid{grid-template-columns:1fr;gap:1rem}.stats-container{padding:1.2rem}.stat-value{font-size:1.2rem}.quote{font-size:1rem}.quote-container{padding:1.5rem}}
         @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.social-item:hover{transform:none!important}}
     </style>
 </head>
@@ -121,21 +129,33 @@
         <div class="avatar">👨‍💻</div>
         <h1 class="name" id="nameDisplay"></h1>
         <div class="bio-container">
-            <p class="bio" id="bioText">フルスタックエンジニアになりたい17歳。<br>セキュリティとユーザビリティを両立したWeb開発を勉強しています。</p>
+            <p class="bio">フルスタックエンジニアになりたい17歳。<br>セキュリティとユーザビリティを両立したWeb開発を勉強しています。</p>
         </div>
 
         <div class="stats-container">
-            <div class="stat-item">
-                <div class="stat-value" id="commits">850+</div>
-                <div class="stat-label">Total Commits</div>
+            <h2 class="section-title">GitHub Status</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="commits">850+</div>
+                    <div class="stat-label">Total Commits</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="repos">12+</div>
+                    <div class="stat-label">Public Repos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="years">2+</div>
+                    <div class="stat-label">Years Coding</div>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value" id="repos">12+</div>
-                <div class="stat-label">Public Repos</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value" id="years">2+</div>
-                <div class="stat-label">Years Coding</div>
+        </div>
+        
+        <div class="quote-section">
+            <div class="quote-container">
+                <blockquote class="quote">
+                    "Bloom where you are planted."
+                </blockquote>
+                <cite class="quote-author">- Kazuko Watanabe</cite>
             </div>
         </div>
 
@@ -151,37 +171,46 @@
                     <div class="skill-item">
                         <div class="skill-info">
                             <span class="skill-name">HTML/CSS</span>
-                            <span class="skill-level">90%</span>
+                            <span class="skill-level">60%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" data-width="90%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span class="skill-name">JavaScript</span>
-                            <span class="skill-level">85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span class="skill-name">PHP</span>
-                            <span class="skill-level">75%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="75%"></div>
+                            <div class="skill-progress" data-width="60%"></div>
                         </div>
                     </div>
                     <div class="skill-item">
                         <div class="skill-info">
                             <span class="skill-name">Python</span>
-                            <span class="skill-level">70%</span>
+                            <span class="skill-level">50%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" data-width="70%"></div>
+                            <div class="skill-progress" data-width="50%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">PHP</span>
+                            <span class="skill-level">40%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="40%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-level">20%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="20%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">C++</span>
+                            <span class="skill-level">3%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="3%"></div>
                         </div>
                     </div>
                 </div>
@@ -330,24 +359,9 @@
             document.getElementById('years').textContent = `${stats.years}+`;
         }
 
-        // 時刻に基づく挨拶メッセージをbioに追加
-        function updateBio() {
-            const hour = new Date().getHours();
-            const bioElement = document.getElementById('bioText');
-            let greeting = '';
-            
-            if (hour >= 5 && hour < 12) greeting = 'おはようございます！';
-            else if (hour >= 12 && hour < 17) greeting = 'こんにちは！';
-            else if (hour >= 17 && hour < 21) greeting = 'こんばんは！';
-            else greeting = '夜更かし中...';
-            
-            bioElement.innerHTML = `${greeting}<br>フルスタックエンジニアになりたい17歳。<br>セキュリティとユーザビリティを両立したWeb開発を勉強しています。`;
-        }
-
         // 初期化
         document.addEventListener('DOMContentLoaded', () => {
             setGitHubStats();
-            updateBio();
             initSkillsToggle();
             
             // 1秒後に名前のタイプライターシーケンス開始
