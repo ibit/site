@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ibit - Developer & Creator</title>
-    <meta name="description" content="ibit - フルスタック開発者。GitHub、YouTube、Discordで活動中。">
+    <title>ibit - Developer</title>
+    <meta name="description" content="ibit">
     <meta name="keywords" content="ibit, developer, creator, GitHub, YouTube, Discord">
     <meta name="author" content="ibit">
     <meta name="robots" content="index, follow">
@@ -29,30 +29,218 @@
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
         @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+        @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+        @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}
         .container{text-align:center;max-width:800px;padding:2rem 1rem}
         .avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(45deg,#667eea,#764ba2);margin:0 auto 2rem;display:flex;align-items:center;justify-content:center;font-size:3rem;animation:fadeUp 1s ease-out}
         .name{font-size:3rem;font-weight:600;background:linear-gradient(45deg,#ff6b6b,#4ecdc4,#45b7d1,#feca57);background-size:300% 300%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradient 3s ease-in-out infinite,fadeUp 1s ease-out .2s both;margin-bottom:1rem}
         .bio{font-size:1.2rem;color:var(--text-dim);margin-bottom:3rem;animation:fadeUp 1s ease-out .4s both}
-        .social{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap}
-        .social-item{width:60px;height:60px;border-radius:50%;background:var(--glass);border:2px solid var(--border);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text);font-size:1.5rem;transition:all .3s cubic-bezier(.175,.885,.32,1.275);position:relative;animation:fadeUp 1s ease-out calc(.6s + var(--delay)) both}
-        .social-item:hover{transform:scale(1.1);background:rgba(255,255,255,.2)}
-        .social-item:focus{outline:2px solid #4facfe;outline-offset:4px}
-        .social-item::after{content:attr(aria-label);position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);background:rgba(0,0,0,.9);color:var(--text);padding:.5rem 1rem;border-radius:1rem;font-size:.8rem;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
-        .social-item:hover::after{opacity:1}
-        .github{--delay:0s;background:linear-gradient(135deg,#333,#24292e)}
-        .twitter{--delay:.1s;background:linear-gradient(135deg,#000,#333)}
-        .youtube{--delay:.2s;background:linear-gradient(135deg,#ff0000,#cc0000)}
-        .discord{--delay:.3s;background:linear-gradient(135deg,#5865f2,#7289da)}
-        .keybase{--delay:.4s;background:linear-gradient(135deg,#ff6f21,#ff4500)}
-        .social-item:hover{background:var(--bg-hover,var(--glass))}
-        .github:hover{--bg-hover:linear-gradient(135deg,#333,#24292e)}
-        .twitter:hover{--bg-hover:linear-gradient(135deg,#000,#333)}
-        .youtube:hover{--bg-hover:linear-gradient(135deg,#ff0000,#cc0000)}
-        .discord:hover{--bg-hover:linear-gradient(135deg,#5865f2,#7289da)}
-        .keybase:hover{--bg-hover:linear-gradient(135deg,#ff6f21,#ff4500)}
-        @media(max-width:768px){.name{font-size:2.5rem}.bio{font-size:1.1rem}.social{gap:1rem}.social-item{width:50px;height:50px;font-size:1.3rem}}
-        @media(max-width:480px){.container{padding:1rem}.avatar{width:100px;height:100px;font-size:2.5rem}.name{font-size:2rem}.bio{font-size:1rem}.social-item{width:45px;height:45px;font-size:1.2rem}}
-        @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+        
+        /* SNSボタンエリアの改良 */
+        .social-container{
+            position:relative;
+            padding:2rem 0;
+            margin-top:2rem;
+        }
+        .social-container::before{
+            content:'';
+            position:absolute;
+            top:0;
+            left:50%;
+            transform:translateX(-50%);
+            width:80px;
+            height:2px;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+            border-radius:1px;
+        }
+        .social{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(80px,1fr));
+            gap:2rem;
+            max-width:500px;
+            margin:0 auto;
+            padding:2rem 0;
+        }
+        .social-item{
+            position:relative;
+            width:80px;
+            height:80px;
+            border-radius:20px;
+            background:var(--glass);
+            border:2px solid var(--border);
+            backdrop-filter:blur(20px);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-decoration:none;
+            color:var(--text);
+            font-size:2rem;
+            transition:all .4s cubic-bezier(.175,.885,.32,1.275);
+            animation:fadeUp 1s ease-out calc(.6s + var(--delay)) both;
+            overflow:hidden;
+            margin:0 auto;
+        }
+        .social-item::before{
+            content:'';
+            position:absolute;
+            inset:0;
+            background:linear-gradient(45deg,transparent,rgba(255,255,255,.1),transparent);
+            background-size:200% 200%;
+            transition:all .4s ease;
+            opacity:0;
+        }
+        .social-item:hover::before{
+            animation:shimmer 1.5s ease-in-out;
+            opacity:1;
+        }
+        .social-item:hover{
+            transform:translateY(-8px) scale(1.05);
+            border-color:rgba(255,255,255,.4);
+            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px var(--glow-color);
+        }
+        .social-item:active{
+            transform:translateY(-4px) scale(1.02);
+        }
+        .social-item:focus{
+            outline:3px solid var(--glow-color);
+            outline-offset:4px;
+        }
+        
+        /* ツールチップの改良 */
+        .social-item::after{
+            content:attr(aria-label);
+            position:absolute;
+            top:calc(100% + 15px);
+            left:50%;
+            transform:translateX(-50%) translateY(10px);
+            background:rgba(0,0,0,.9);
+            color:var(--text);
+            padding:.8rem 1.2rem;
+            border-radius:12px;
+            font-size:.85rem;
+            opacity:0;
+            transition:all .3s cubic-bezier(.175,.885,.32,1.275);
+            pointer-events:none;
+            white-space:nowrap;
+            backdrop-filter:blur(10px);
+            border:1px solid rgba(255,255,255,.1);
+        }
+        .social-item:hover::after{
+            opacity:1;
+            transform:translateX(-50%) translateY(0);
+        }
+        
+        /* プラットフォーム別のカスタマイズ */
+        .github{
+            --delay:0s;
+            --glow-color:#f0f6fc;
+            background:linear-gradient(135deg,rgba(36,41,46,.8),rgba(13,17,23,.9));
+        }
+        .github:hover{
+            background:linear-gradient(135deg,#30363d,#21262d);
+            color:#f0f6fc;
+        }
+        .github i{
+            transition:transform .3s ease;
+        }
+        .github:hover i{
+            animation:bounce 1s ease;
+        }
+        
+        .twitter{
+            --delay:.1s;
+            --glow-color:#1d9bf0;
+            background:linear-gradient(135deg,rgba(0,0,0,.8),rgba(21,32,43,.9));
+        }
+        .twitter:hover{
+            background:linear-gradient(135deg,#1a1a1a,#000);
+            color:#1d9bf0;
+        }
+        
+        .youtube{
+            --delay:.2s;
+            --glow-color:#ff0000;
+            background:linear-gradient(135deg,rgba(255,0,0,.2),rgba(204,0,0,.3));
+        }
+        .youtube:hover{
+            background:linear-gradient(135deg,#ff0000,#cc0000);
+            color:#fff;
+        }
+        .youtube:hover i{
+            animation:pulse 1.5s ease infinite;
+        }
+        
+        .discord{
+            --delay:.3s;
+            --glow-color:#5865f2;
+            background:linear-gradient(135deg,rgba(88,101,242,.2),rgba(114,137,218,.3));
+        }
+        .discord:hover{
+            background:linear-gradient(135deg,#5865f2,#7289da);
+            color:#fff;
+        }
+        
+        .keybase{
+            --delay:.4s;
+            --glow-color:#ff6f21;
+            background:linear-gradient(135deg,rgba(255,111,33,.2),rgba(255,69,0,.3));
+        }
+        .keybase:hover{
+            background:linear-gradient(135deg,#ff6f21,#ff4500);
+            color:#fff;
+        }
+        
+        .zenn{
+            --delay:.5s;
+            --glow-color:#3ea8ff;
+            background:linear-gradient(135deg,rgba(62,168,255,.2),rgba(30,144,255,.3));
+        }
+        .zenn:hover{
+            background:linear-gradient(135deg,#3ea8ff,#1e90ff);
+            color:#fff;
+        }
+        .zenn:hover i{
+            animation:pulse 1.5s ease infinite;
+        }
+        
+        /* モバイル対応の改良 */
+        @media(max-width:768px){
+            .name{font-size:2.5rem}
+            .bio{font-size:1.1rem}
+            .social{
+                grid-template-columns:repeat(3,1fr);
+                gap:1.5rem;
+                max-width:300px;
+            }
+            .social-item{
+                width:70px;
+                height:70px;
+                font-size:1.8rem;
+                border-radius:16px;
+            }
+        }
+        @media(max-width:480px){
+            .container{padding:1rem}
+            .avatar{width:100px;height:100px;font-size:2.5rem}
+            .name{font-size:2rem}
+            .bio{font-size:1rem}
+            .social{
+                grid-template-columns:repeat(2,1fr);
+                gap:1.2rem;
+                max-width:200px;
+            }
+            .social-item{
+                width:60px;
+                height:60px;
+                font-size:1.5rem;
+                border-radius:14px;
+            }
+        }
+        @media(prefers-reduced-motion:reduce){
+            *{animation:none!important;transition:none!important}
+            .social-item:hover{transform:none!important}
+        }
     </style>
 </head>
 
@@ -60,24 +248,30 @@
     <main class="container">
         <div class="avatar">👨‍💻</div>
         <h1 class="name">ibit</h1>
-        <p class="bio">17歳のフルスタックエンジニア志望。<br>セキュリティとユーザビリティを両立したWeb開発を追求しています。</p>
-        <nav class="social" role="navigation" aria-label="Social Links">
-            <a href="https://github.com/ibit" class="social-item github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <i class="fab fa-github" aria-hidden="true"></i>
-            </a>
-            <a href="https://x.com/ibit" class="social-item twitter" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                <i class="fab fa-x-twitter" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.youtube.com/@ibit-xyz" class="social-item youtube" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                <i class="fab fa-youtube" aria-hidden="true"></i>
-            </a>
-            <a href="https://discord.com/users/ibit" class="social-item discord" target="_blank" rel="noopener noreferrer" aria-label="Discord">
-                <i class="fab fa-discord" aria-hidden="true"></i>
-            </a>
-            <a href="https://keybase.io/ibit" class="social-item keybase" target="_blank" rel="noopener noreferrer" aria-label="Keybase">
-                <i class="fab fa-keybase" aria-hidden="true"></i>
-            </a>
-        </nav>
+        <p class="bio">フルスタックエンジニアになりたい17歳。<br>セキュリティとユーザビリティを両立したWeb開発を勉強しています。</p>
+        
+        <div class="social-container">
+            <nav class="social" role="navigation" aria-label="Social Links">
+                <a href="https://github.com/ibit" class="social-item github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                </a>
+                <a href="https://x.com/ibit" class="social-item twitter" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-x-twitter" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.youtube.com/@ibit-xyz" class="social-item youtube" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <i class="fab fa-youtube" aria-hidden="true"></i>
+                </a>
+                <a href="https://discord.com/users/ibit" class="social-item discord" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+                    <i class="fab fa-discord" aria-hidden="true"></i>
+                </a>
+                <a href="https://keybase.io/ibit" class="social-item keybase" target="_blank" rel="noopener noreferrer" aria-label="Keybase">
+                    <i class="fab fa-keybase" aria-hidden="true"></i>
+                </a>
+                <a href="https://zenn.dev/ibit" class="social-item zenn" target="_blank" rel="noopener noreferrer" aria-label="Zenn">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                </a>
+            </nav>
+        </div>
     </main>
 </body>
 </html>
