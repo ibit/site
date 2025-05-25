@@ -55,18 +55,18 @@
             border-radius:1px;
         }
         .social{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(80px,1fr));
+            display:flex;
+            justify-content:center;
+            align-items:center;
             gap:2rem;
-            max-width:500px;
-            margin:0 auto;
+            flex-wrap:wrap;
             padding:2rem 0;
         }
         .social-item{
             position:relative;
             width:80px;
             height:80px;
-            border-radius:20px;
+            border-radius:50%;
             background:var(--glass);
             border:2px solid var(--border);
             backdrop-filter:blur(20px);
@@ -79,7 +79,6 @@
             transition:all .4s cubic-bezier(.175,.885,.32,1.275);
             animation:fadeUp 1s ease-out calc(.6s + var(--delay)) both;
             overflow:hidden;
-            margin:0 auto;
         }
         .social-item::before{
             content:'';
@@ -97,7 +96,6 @@
         .social-item:hover{
             transform:translateY(-8px) scale(1.05);
             border-color:rgba(255,255,255,.4);
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px var(--glow-color);
         }
         .social-item:active{
             transform:translateY(-4px) scale(1.02);
@@ -134,14 +132,15 @@
         /* プラットフォーム別のカスタマイズ */
         .github{
             --delay:0s;
-            --glow-color:#f0f6fc;
-            background:linear-gradient(135deg,rgba(36,41,46,.8),rgba(13,17,23,.9));
+            background:linear-gradient(135deg,rgba(36,41,46,.3),rgba(13,17,23,.4));
         }
         .github:hover{
-            background:linear-gradient(135deg,#30363d,#21262d);
+            background:linear-gradient(135deg,rgba(36,41,46,.6),rgba(13,17,23,.7));
             color:#f0f6fc;
+            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(240,246,252,.3);
         }
         .github i{
+            color:#f0f6fc;
             transition:transform .3s ease;
         }
         .github:hover i{
@@ -150,74 +149,107 @@
         
         .twitter{
             --delay:.1s;
-            --glow-color:#1d9bf0;
-            background:linear-gradient(135deg,rgba(0,0,0,.8),rgba(21,32,43,.9));
+            background:linear-gradient(135deg,rgba(0,0,0,.3),rgba(21,32,43,.4));
         }
         .twitter:hover{
-            background:linear-gradient(135deg,#1a1a1a,#000);
+            background:linear-gradient(135deg,rgba(0,0,0,.6),rgba(21,32,43,.7));
+            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(29,155,240,.3);
+        }
+        .twitter i{
             color:#1d9bf0;
+            transition:transform .3s ease;
+        }
+        .twitter:hover i{
+            animation:bounce 1s ease;
         }
         
         .youtube{
             --delay:.2s;
-            --glow-color:#ff0000;
             background:linear-gradient(135deg,rgba(255,0,0,.2),rgba(204,0,0,.3));
         }
         .youtube:hover{
-            background:linear-gradient(135deg,#ff0000,#cc0000);
-            color:#fff;
+            background:linear-gradient(135deg,rgba(255,0,0,.5),rgba(204,0,0,.6));
+            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(255,0,0,.3);
+        }
+        .youtube i{
+            color:#ff0000;
+            transition:transform .3s ease;
         }
         .youtube:hover i{
-            animation:pulse 1.5s ease infinite;
+            animation:bounce 1s ease;
         }
         
         .discord{
             --delay:.3s;
-            --glow-color:#5865f2;
             background:linear-gradient(135deg,rgba(88,101,242,.2),rgba(114,137,218,.3));
         }
         .discord:hover{
-            background:linear-gradient(135deg,#5865f2,#7289da);
-            color:#fff;
+            background:linear-gradient(135deg,rgba(88,101,242,.5),rgba(114,137,218,.6));
+            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(88,101,242,.3);
+        }
+        .discord i{
+            color:#5865f2;
+            transition:transform .3s ease;
+        }
+        .discord:hover i{
+            animation:bounce 1s ease;
         }
         
         .keybase{
             --delay:.4s;
-            --glow-color:#ff6f21;
             background:linear-gradient(135deg,rgba(255,111,33,.2),rgba(255,69,0,.3));
         }
         .keybase:hover{
-            background:linear-gradient(135deg,#ff6f21,#ff4500);
-            color:#fff;
+            background:linear-gradient(135deg,rgba(255,111,33,.5),rgba(255,69,0,.6));
+            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(255,111,33,.3);
+        }
+        .keybase i{
+            color:#ff6f21;
+            transition:transform .3s ease;
+        }
+        .keybase:hover i{
+            animation:bounce 1s ease;
         }
         
         .zenn{
             --delay:.5s;
-            --glow-color:#3ea8ff;
             background:linear-gradient(135deg,rgba(62,168,255,.2),rgba(30,144,255,.3));
         }
         .zenn:hover{
-            background:linear-gradient(135deg,#3ea8ff,#1e90ff);
-            color:#fff;
+            background:linear-gradient(135deg,rgba(62,168,255,.5),rgba(30,144,255,.6));
+            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(62,168,255,.3);
         }
-        .zenn:hover i{
-            animation:pulse 1.5s ease infinite;
+        .zenn svg{
+            color:#3ea8ff;
+            transition:transform .3s ease;
+            width:2rem;
+            height:2rem;
+        }
+        .zenn:hover svg{
+            animation:bounce 1s ease;
         }
         
         /* モバイル対応の改良 */
+        @media(min-width:1024px){
+            .social{
+                gap:2.5rem;
+            }
+            .social-item{
+                width:90px;
+                height:90px;
+                font-size:2.2rem;
+            }
+        }
         @media(max-width:768px){
             .name{font-size:2.5rem}
             .bio{font-size:1.1rem}
             .social{
-                grid-template-columns:repeat(3,1fr);
                 gap:1.5rem;
-                max-width:300px;
             }
             .social-item{
                 width:70px;
                 height:70px;
                 font-size:1.8rem;
-                border-radius:16px;
             }
         }
         @media(max-width:480px){
@@ -226,15 +258,16 @@
             .name{font-size:2rem}
             .bio{font-size:1rem}
             .social{
-                grid-template-columns:repeat(2,1fr);
+                display:grid;
+                grid-template-columns:repeat(3,1fr);
                 gap:1.2rem;
-                max-width:200px;
+                max-width:240px;
+                margin:0 auto;
             }
             .social-item{
                 width:60px;
                 height:60px;
                 font-size:1.5rem;
-                border-radius:14px;
             }
         }
         @media(prefers-reduced-motion:reduce){
@@ -268,7 +301,10 @@
                     <i class="fab fa-keybase" aria-hidden="true"></i>
                 </a>
                 <a href="https://zenn.dev/ibit" class="social-item zenn" target="_blank" rel="noopener noreferrer" aria-label="Zenn">
-                    <i class="fas fa-book" aria-hidden="true"></i>
+                    <svg width="24" height="24" viewBox="0 0 88.3 88.3" fill="currentColor" aria-hidden="true">
+                        <path d="M21.6 0h45.1c11.9 0 21.6 9.7 21.6 21.6v45.1c0 11.9-9.7 21.6-21.6 21.6H21.6C9.7 88.3 0 78.6 0 66.7V21.6C0 9.7 9.7 0 21.6 0z"/>
+                        <path d="M18.8 69.2h17.5L68 19.1H50.5L18.8 69.2z" fill="#000"/>
+                    </svg>
                 </a>
             </nav>
         </div>
