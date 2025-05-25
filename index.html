@@ -20,286 +20,145 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrer="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{--bg:linear-gradient(135deg,#0c0c0c 0%,#1a1a2e 50%,#16213e 100%);--glass:rgba(255,255,255,.1);--border:rgba(255,255,255,.2);--text:#fff;--text-dim:rgba(255,255,255,.8)}
-        body{background:var(--bg);font-family:Inter,system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:var(--text);position:relative;overflow-x:hidden}
-        body::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(120,119,198,.4) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(255,119,198,.4) 0%,transparent 50%),radial-gradient(circle at 40% 80%,rgba(64,224,208,.3) 0%,transparent 50%);animation:float 20s ease-in-out infinite;z-index:-2}
-        body::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,transparent,transparent 98px,rgba(255,255,255,.03) 100px),repeating-linear-gradient(0deg,transparent,transparent 98px,rgba(255,255,255,.03) 100px);z-index:-1}
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-        @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-        @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-        @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(255,255,255,.1)}50%{box-shadow:0 0 40px rgba(255,255,255,.2),0 0 60px rgba(120,119,198,.3)}}
-        @keyframes slideIn{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
-        @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}
-        .container{text-align:center;max-width:800px;padding:2rem 1rem}
-        .avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(45deg,#667eea,#764ba2);margin:0 auto 2rem;display:flex;align-items:center;justify-content:center;font-size:3rem;animation:fadeUp 1s ease-out}
-        .name{font-size:3rem;font-weight:600;background:linear-gradient(45deg,#ff6b6b,#4ecdc4,#45b7d1,#feca57);background-size:300% 300%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradient 3s ease-in-out infinite,fadeUp 1s ease-out .2s both;margin-bottom:1rem}
-        .bio{font-size:1.2rem;color:var(--text-dim);margin-bottom:3rem;animation:fadeUp 1s ease-out .4s both;position:relative;padding:2rem 2.5rem;border:2px solid rgba(255,255,255,.2);border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.02));backdrop-filter:blur(20px);box-shadow:0 8px 32px rgba(0,0,0,.3);animation:fadeUp 1s ease-out .4s both,glow 4s ease-in-out infinite 2s}
-        .bio::before{content:'';position:absolute;inset:0;border-radius:18px;padding:2px;background:linear-gradient(45deg,rgba(120,119,198,.6),rgba(255,119,198,.6),rgba(64,224,208,.6),rgba(120,119,198,.6));mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;animation:gradient 3s linear infinite}
-        .bio::after{content:'💫';position:absolute;top:-10px;right:20px;font-size:1.5rem;animation:float 3s ease-in-out infinite}
-        
-        /* SNSボタンエリアの改良 */
-        .social-container{
-            position:relative;
-            padding:2rem 0;
-            margin-top:2rem;
+        :root {
+            --bg:linear-gradient(135deg,#15161b 0%,#23263a 100%);
+            --glass:rgba(30,32,45,0.7);
+            --border:rgba(120,160,255,0.18);
+            --text:#e7eaf6;
+            --text-dim:rgba(231,234,246,0.7);
         }
-        .social-container::before{
+        html,body {height:100%;}
+        body {
+            min-height:100vh;
+            background: var(--bg);
+            font-family: Inter,system-ui,sans-serif;
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index:0;
+            overflow-x:hidden;
+        }
+        body::before {
             content:'';
-            position:absolute;
-            top:0;
-            left:50%;
-            transform:translateX(-50%);
-            width:80px;
-            height:2px;
-            background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
-            border-radius:1px;
+            position:fixed;
+            inset:0;
+            pointer-events:none;
+            z-index:-1;
+            background: radial-gradient(circle at 20% 60%,rgba(60,140,220,0.13) 0,transparent 70%),
+                        radial-gradient(circle at 80% 20%,rgba(160,255,245,0.07) 0,transparent 55%);
+            opacity:0.95;
         }
-        .social{
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            gap:2rem;
-            flex-wrap:wrap;
-            padding:2rem 0;
+        .container {
+            text-align:center;
+            max-width:600px;
+            width:100%;
+            padding:2rem 1rem;
         }
-        .social-item{
-            position:relative;
-            width:60px;
-            height:60px;
+        .avatar {
+            width:96px;height:96px;
             border-radius:50%;
-            background:var(--glass);
-            border:2px solid var(--border);
-            backdrop-filter:blur(20px);
-            display:flex;
-            align-items:center;
-            justify-content:center;
+            background:linear-gradient(135deg,#24243e 0%,#0f2027 100%);
+            margin:0 auto 1.5rem;
+            display:flex;align-items:center;justify-content:center;font-size:2.5rem;
+            box-shadow:0 4px 24px rgba(60,120,255,0.12);
+        }
+        .name {
+            font-size:2.3rem;
+            font-weight:600;
+            color:#e7eaf6;
+            letter-spacing:0.02em;
+            margin-bottom:1.3rem;
+        }
+        .bio {
+            background: var(--glass);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem 1.8rem;
+            font-size:1.11rem;
+            color:var(--text-dim);
+            margin: 0 auto 2.2rem;
+            box-shadow:0 2px 12px rgba(36,55,90,0.11);
+            transition: background 0.3s;
+            position:relative;
+        }
+        /* SNSボタンエリア */
+        .social-container {
+            margin-top:1.5rem;
+        }
+        .social {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.3rem;
+            flex-wrap: wrap;
+            padding: 0;
+        }
+        .social-item {
+            width:48px;height:48px;
+            border-radius:50%;
+            background:rgba(30,32,45,0.85);
+            border:1.5px solid var(--border);
+            display:flex;align-items:center;justify-content:center;
             text-decoration:none;
             color:var(--text);
-            font-size:1.5rem;
-            transition:all .4s cubic-bezier(.175,.885,.32,1.275);
-            animation:fadeUp 1s ease-out calc(.6s + var(--delay)) both;
+            font-size:1.3rem;
+            transition: background 0.18s, box-shadow 0.18s, border 0.18s, transform 0.18s;
+            box-shadow:0 2px 8px rgba(60,120,255,0.07);
+            position:relative;
             overflow:hidden;
         }
-        .social-item::before{
-            content:'';
-            position:absolute;
-            inset:0;
-            background:linear-gradient(45deg,transparent,rgba(255,255,255,.1),transparent);
-            background-size:200% 200%;
-            transition:all .4s ease;
-            opacity:0;
+        .social-item:hover {
+            background:rgba(60,120,255,0.1);
+            border-color:rgba(120,160,255,0.25);
+            transform:translateY(-2px) scale(1.07);
         }
-        .social-item:hover::before{
-            animation:shimmer 1.5s ease-in-out;
-            opacity:1;
-        }
-        .social-item:hover{
-            transform:translateY(-8px) scale(1.05);
-            border-color:rgba(255,255,255,.4);
-        }
-        .social-item:active{
-            transform:translateY(-4px) scale(1.02);
-        }
-        .social-item:focus{
-            outline:3px solid var(--glow-color);
-            outline-offset:4px;
-        }
-        
-        /* ツールチップの改良 */
-        .social-item::after{
+        .social-item:active {transform:scale(0.97);}
+        .social-item:focus {outline:2px solid #6b8cff;outline-offset:2px;}
+        .social-item i,.social-item svg {transition:transform .2s;}
+        .social-item:hover i,.social-item:hover svg {transform:scale(1.13);}
+        .social-item::after {
             content:attr(aria-label);
-            position:absolute;
-            top:calc(100% + 15px);
-            left:50%;
-            transform:translateX(-50%) translateY(10px);
-            background:rgba(0,0,0,.9);
-            color:var(--text);
-            padding:.8rem 1.2rem;
-            border-radius:12px;
-            font-size:.85rem;
+            position:absolute;top:115%;left:50%;transform:translateX(-50%);
+            background:rgba(20,25,40,0.96);
+            color:#e7eaf6;
+            padding:.38rem .8rem;
+            border-radius:8px;
+            font-size:.82rem;
             opacity:0;
-            transition:all .3s cubic-bezier(.175,.885,.32,1.275);
             pointer-events:none;
             white-space:nowrap;
-            backdrop-filter:blur(10px);
-            border:1px solid rgba(255,255,255,.1);
+            border:1px solid rgba(120,160,255,0.07);
+            transition:opacity .18s;
         }
-        .social-item:hover::after{
-            opacity:1;
-            transform:translateX(-50%) translateY(0);
-        }
-        
-        /* プラットフォーム別のカスタマイズ */
-        .github{
-            --delay:0s;
-            background:linear-gradient(135deg,rgba(36,41,46,.3),rgba(13,17,23,.4));
-        }
-        .github:hover{
-            background:linear-gradient(135deg,rgba(36,41,46,.6),rgba(13,17,23,.7));
-            color:#f0f6fc;
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(240,246,252,.3);
-        }
-        .github i{
-            color:#f0f6fc;
-            transition:transform .3s ease;
-        }
-        .github:hover i{
-            animation:bounce 1s ease;
-        }
-        
-        .twitter{
-            --delay:.1s;
-            background:linear-gradient(135deg,rgba(0,0,0,.3),rgba(21,32,43,.4));
-        }
-        .twitter:hover{
-            background:linear-gradient(135deg,rgba(0,0,0,.6),rgba(21,32,43,.7));
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(29,155,240,.3);
-        }
-        .twitter i{
-            color:#1d9bf0;
-            transition:transform .3s ease;
-        }
-        .twitter:hover i{
-            animation:bounce 1s ease;
-        }
-        
-        .youtube{
-            --delay:.2s;
-            background:linear-gradient(135deg,rgba(255,0,0,.2),rgba(204,0,0,.3));
-        }
-        .youtube:hover{
-            background:linear-gradient(135deg,rgba(255,0,0,.5),rgba(204,0,0,.6));
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(255,0,0,.3);
-        }
-        .youtube i{
-            color:#ff0000;
-            transition:transform .3s ease;
-        }
-        .youtube:hover i{
-            animation:bounce 1s ease;
-        }
-        
-        .discord{
-            --delay:.3s;
-            background:linear-gradient(135deg,rgba(88,101,242,.2),rgba(114,137,218,.3));
-        }
-        .discord:hover{
-            background:linear-gradient(135deg,rgba(88,101,242,.5),rgba(114,137,218,.6));
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(88,101,242,.3);
-        }
-        .discord i{
-            color:#5865f2;
-            transition:transform .3s ease;
-        }
-        .discord:hover i{
-            animation:bounce 1s ease;
-        }
-        
-        .keybase{
-            --delay:.4s;
-            background:linear-gradient(135deg,rgba(255,111,33,.2),rgba(255,69,0,.3));
-        }
-        .keybase:hover{
-            background:linear-gradient(135deg,rgba(255,111,33,.5),rgba(255,69,0,.6));
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(255,111,33,.3);
-        }
-        .keybase i{
-            color:#ff6f21;
-            transition:transform .3s ease;
-        }
-        .keybase:hover i{
-            animation:bounce 1s ease;
-        }
-        
-        .zenn{
-            --delay:.5s;
-            background:linear-gradient(135deg,rgba(62,168,255,.2),rgba(30,144,255,.3));
-        }
-        .zenn:hover{
-            background:linear-gradient(135deg,rgba(62,168,255,.5),rgba(30,144,255,.6));
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(62,168,255,.3);
-        }
-        .zenn svg{
-            color:#3ea8ff;
-            transition:transform .3s ease;
-            width:1.5rem;
-            height:1.5rem;
-        }
-        .zenn:hover svg{
-            animation:bounce 1s ease;
-        }
-        
-        /* モバイル対応の改良 */
-        @media(min-width:1024px){
-            .social{
-                gap:2rem;
-            }
-            .social-item{
-                width:70px;
-                height:70px;
-                font-size:1.8rem;
-            }
-            .zenn svg{
-                width:1.8rem;
-                height:1.8rem;
-            }
-        }
-        @media(max-width:768px){
-            .name{font-size:2.5rem}
-            .bio{font-size:1.1rem;padding:1.5rem 2rem}
-            .social{
-                gap:1.2rem;
-            }
-            .social-item{
-                width:55px;
-                height:55px;
-                font-size:1.3rem;
-            }
-            .zenn svg{
-                width:1.3rem;
-                height:1.3rem;
-            }
-        }
-        @media(max-width:480px){
-            .container{padding:1rem}
-            .avatar{width:100px;height:100px;font-size:2.5rem}
-            .name{font-size:2rem}
-            .bio{font-size:1rem;padding:1.2rem 1.5rem}
-            .social{
-                display:grid;
-                grid-template-columns:repeat(3,1fr);
-                gap:1rem;
-                max-width:180px;
-                margin:0 auto;
-            }
-            .social-item{
-                width:50px;
-                height:50px;
-                font-size:1.2rem;
-            }
-            .zenn svg{
-                width:1.2rem;
-                height:1.2rem;
-            }
-        }
-        @media(prefers-reduced-motion:reduce){
-            *{animation:none!important;transition:none!important}
-            .social-item:hover{transform:none!important}
+        .social-item:hover::after {opacity:1;}
+        .github i{color:#b2cdf7;}
+        .twitter i{color:#79c9f5;}
+        .youtube i{color:#f55;}
+        .discord i{color:#99aaff;}
+        .keybase i{color:#ffb366;}
+        .zenn svg{color:#82d0ff;width:1.3rem;height:1.3rem;}
+        /* モバイル対応 */
+        @media(max-width:600px){
+            .container{padding:1.2rem;}
+            .name{font-size:1.4rem;}
+            .avatar{width:68px;height:68px;font-size:1.6rem;}
+            .bio{font-size:0.98rem;padding:1rem 1rem;}
+            .social{gap:0.8rem;}
+            .social-item{width:38px;height:38px;font-size:1.1rem;}
         }
     </style>
 </head>
-
 <body>
     <main class="container">
         <div class="avatar">👨‍💻</div>
         <h1 class="name">ibit</h1>
         <p class="bio">フルスタックエンジニアになりたい17歳。<br>セキュリティとユーザビリティを両立したWeb開発を勉強しています。</p>
-        
         <div class="social-container">
             <nav class="social" role="navigation" aria-label="Social Links">
                 <a href="https://github.com/ibit" class="social-item github" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -318,7 +177,7 @@
                     <i class="fab fa-keybase" aria-hidden="true"></i>
                 </a>
                 <a href="https://zenn.dev/ibit" class="social-item zenn" target="_blank" rel="noopener noreferrer" aria-label="Zenn">
-                    <svg width="24" height="24" viewBox="0 0 88.3 88.3" fill="currentColor" aria-hidden="true">
+                    <svg viewBox="0 0 88.3 88.3" fill="currentColor" aria-hidden="true">
                         <path d="M21.6 0h45.1c11.9 0 21.6 9.7 21.6 21.6v45.1c0 11.9-9.7 21.6-21.6 21.6H21.6C9.7 88.3 0 78.6 0 66.7V21.6C0 9.7 9.7 0 21.6 0z"/>
                         <path d="M18.8 69.2h17.5L68 19.1H50.5L18.8 69.2z" fill="#000"/>
                     </svg>
