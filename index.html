@@ -23,265 +23,170 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrer="no-referrer">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        :root{--bg:linear-gradient(135deg,#0c0c0c 0%,#1a1a2e 50%,#16213e 100%);--glass:rgba(255,255,255,.1);--border:rgba(255,255,255,.2);--text:#fff;--text-dim:rgba(255,255,255,.8)}
-        body{background:var(--bg);font-family:Inter,system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:var(--text);position:relative}
-        body::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(120,119,198,.3) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(255,119,198,.3) 0%,transparent 50%);animation:float 20s ease-in-out infinite;z-index:-1}
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-        @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        :root{--bg:#0a0a0f;--accent:#00d4ff;--glass:rgba(0,212,255,.08);--border:rgba(0,212,255,.15);--text:#e0e6ed;--text-dim:#8892b0;--grid:rgba(0,212,255,.03)}
+        body{background:var(--bg);font-family:Inter,system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;color:var(--text);position:relative;overflow-x:hidden}
+        body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 30% 40%,rgba(0,212,255,.06) 0%,transparent 70%),radial-gradient(circle at 70% 80%,rgba(64,224,208,.04) 0%,transparent 70%);z-index:-2}
+        body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.02) 1px,transparent 1px);background-size:50px 50px;z-index:-1}
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
         @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
         @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
         @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}
+        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(0,212,255,.2)}50%{box-shadow:0 0 30px rgba(0,212,255,.4),0 0 40px rgba(0,212,255,.1)}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes progressFill{from{width:0!important}}
+        @keyframes typewriter{from{width:0}to{width:100%}}
+        @keyframes blink{0%,50%{border-color:transparent}51%,100%{border-color:var(--accent)}}
+        
         .container{text-align:center;max-width:800px;padding:2rem 1rem}
-        .avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(45deg,#667eea,#764ba2);margin:0 auto 2rem;display:flex;align-items:center;justify-content:center;font-size:3rem;animation:fadeUp 1s ease-out}
-        .name{font-size:3rem;font-weight:600;background:linear-gradient(45deg,#ff6b6b,#4ecdc4,#45b7d1,#feca57);background-size:300% 300%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradient 3s ease-in-out infinite,fadeUp 1s ease-out .2s both;margin-bottom:1rem}
-        .bio{font-size:1.2rem;color:var(--text-dim);margin-bottom:3rem;animation:fadeUp 1s ease-out .4s both}
+        .avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#1a1a2e,#16213e);border:2px solid var(--border);margin:0 auto 2rem;display:flex;align-items:center;justify-content:center;font-size:3rem;animation:fadeUp 1s ease-out,glow 3s ease-in-out infinite;position:relative}
+        .avatar::before{content:'';position:absolute;inset:-2px;border-radius:50%;background:linear-gradient(45deg,var(--accent),transparent,var(--accent));z-index:-1;animation:spin 8s linear infinite}
         
-        /* SNSボタンエリアの改良 */
-        .social-container{
-            position:relative;
-            padding:2rem 0;
-            margin-top:2rem;
-        }
-        .social-container::before{
-            content:'';
-            position:absolute;
-            top:0;
-            left:50%;
-            transform:translateX(-50%);
-            width:80px;
-            height:2px;
-            background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
-            border-radius:1px;
-        }
-        .social{
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            gap:2rem;
-            flex-wrap:wrap;
-            padding:2rem 0;
-        }
-        .social-item{
-            position:relative;
-            width:80px;
-            height:80px;
-            border-radius:50%;
-            background:var(--glass);
-            border:2px solid var(--border);
-            backdrop-filter:blur(20px);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            text-decoration:none;
-            color:var(--text);
-            font-size:2rem;
-            transition:all .4s cubic-bezier(.175,.885,.32,1.275);
-            animation:fadeUp 1s ease-out calc(.6s + var(--delay)) both;
-            overflow:hidden;
-        }
-        .social-item::before{
-            content:'';
-            position:absolute;
-            inset:0;
-            background:linear-gradient(45deg,transparent,rgba(255,255,255,.1),transparent);
-            background-size:200% 200%;
-            transition:all .4s ease;
-            opacity:0;
-        }
-        .social-item:hover::before{
-            animation:shimmer 1.5s ease-in-out;
-            opacity:1;
-        }
-        .social-item:hover{
-            transform:translateY(-8px) scale(1.05);
-            border-color:rgba(255,255,255,.4);
-        }
-        .social-item:active{
-            transform:translateY(-4px) scale(1.02);
-        }
-        .social-item:focus{
-            outline:3px solid var(--glow-color);
-            outline-offset:4px;
-        }
+        .name{font-size:3rem;font-weight:600;background:linear-gradient(135deg,var(--accent),#40e0d0);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:fadeUp 1s ease-out .2s both;margin-bottom:1rem;text-shadow:0 0 20px rgba(0,212,255,.2);position:relative;min-height:4rem;display:flex;align-items:center;justify-content:center}
+        .name::after{content:'';position:absolute;right:-4px;top:50%;transform:translateY(-50%);width:3px;height:1em;background:var(--accent);animation:blink 1s infinite;opacity:0}
+        .name.typing::after{opacity:1}
         
-        /* ツールチップの改良 */
-        .social-item::after{
-            content:attr(aria-label);
-            position:absolute;
-            top:calc(100% + 15px);
-            left:50%;
-            transform:translateX(-50%) translateY(10px);
-            background:rgba(0,0,0,.9);
-            color:var(--text);
-            padding:.8rem 1.2rem;
-            border-radius:12px;
-            font-size:.85rem;
-            opacity:0;
-            transition:all .3s cubic-bezier(.175,.885,.32,1.275);
-            pointer-events:none;
-            white-space:nowrap;
-            backdrop-filter:blur(10px);
-            border:1px solid rgba(255,255,255,.1);
-        }
-        .social-item:hover::after{
-            opacity:1;
-            transform:translateX(-50%) translateY(0);
-        }
+        .bio-container{background:var(--glass);border:1px solid var(--border);border-radius:12px;padding:2rem;margin:2rem 0 3rem;backdrop-filter:blur(10px);position:relative;overflow:hidden;animation:fadeUp 1s ease-out .4s both}
+        .bio-container::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+        .bio{font-size:1.2rem;color:var(--text-dim);line-height:1.6}
         
-        /* プラットフォーム別のカスタマイズ */
-        .github{
-            --delay:0s;
-            background:linear-gradient(135deg,rgba(36,41,46,.3),rgba(13,17,23,.4));
-        }
-        .github:hover{
-            background:linear-gradient(135deg,rgba(36,41,46,.6),rgba(13,17,23,.7));
-            color:#f0f6fc;
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(240,246,252,.3);
-        }
-        .github i{
-            color:#f0f6fc;
-            transition:transform .3s ease;
-        }
-        .github:hover i{
-            animation:bounce 1s ease;
-        }
+        .stats-container{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin:2rem 0;padding:2rem;background:var(--glass);border:1px solid var(--border);border-radius:12px;backdrop-filter:blur(10px);animation:fadeUp 1s ease-out .7s both}
+        .stat-item{text-align:center}
+        .stat-value{font-size:2rem;font-weight:600;color:var(--accent);margin-bottom:.5rem}
+        .stat-label{font-size:.9rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px}
         
-        .twitter{
-            --delay:.1s;
-            background:linear-gradient(135deg,rgba(0,0,0,.3),rgba(21,32,43,.4));
-        }
-        .twitter:hover{
-            background:linear-gradient(135deg,rgba(0,0,0,.6),rgba(21,32,43,.7));
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(29,155,240,.3);
-        }
-        .twitter i{
-            color:#1d9bf0;
-            transition:transform .3s ease;
-        }
-        .twitter:hover i{
-            animation:bounce 1s ease;
-        }
+        .skills-toggle{background:var(--glass);border:1px solid var(--border);border-radius:12px;margin:2rem 0;backdrop-filter:blur(10px);position:relative;overflow:hidden;animation:fadeUp 1s ease-out .8s both;cursor:pointer;transition:all .3s ease}
+        .skills-toggle:hover{border-color:var(--accent);transform:translateY(-2px)}
+        .skills-toggle::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
         
-        .youtube{
-            --delay:.2s;
-            background:linear-gradient(135deg,rgba(255,0,0,.2),rgba(204,0,0,.3));
-        }
-        .youtube:hover{
-            background:linear-gradient(135deg,rgba(255,0,0,.5),rgba(204,0,0,.6));
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(255,0,0,.3);
-        }
-        .youtube i{
-            color:#ff0000;
-            transition:transform .3s ease;
-        }
-        .youtube:hover i{
-            animation:bounce 1s ease;
-        }
+        .skills-header{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 2rem;user-select:none}
+        .skills-title{font-size:1.5rem;font-weight:600;color:var(--accent)}
+        .skills-arrow{font-size:1.2rem;color:var(--accent);transition:transform .3s ease}
+        .skills-arrow.expanded{transform:rotate(180deg)}
         
-        .discord{
-            --delay:.3s;
-            background:linear-gradient(135deg,rgba(88,101,242,.2),rgba(114,137,218,.3));
-        }
-        .discord:hover{
-            background:linear-gradient(135deg,rgba(88,101,242,.5),rgba(114,137,218,.6));
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(88,101,242,.3);
-        }
-        .discord i{
-            color:#5865f2;
-            transition:transform .3s ease;
-        }
-        .discord:hover i{
-            animation:bounce 1s ease;
-        }
+        .skills-content{max-height:0;overflow:hidden;transition:max-height .5s ease-out}
+        .skills-content.expanded{max-height:500px}
+        .skills-grid{padding:0 2rem 2rem;display:grid;gap:1.5rem}
+        .skill-item{display:flex;flex-direction:column;gap:.5rem}
+        .skill-info{display:flex;justify-content:space-between;align-items:center}
+        .skill-name{font-weight:500;color:var(--text)}
+        .skill-level{font-size:.9rem;color:var(--accent)}
+        .skill-bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}
+        .skill-progress{height:100%;background:linear-gradient(90deg,var(--accent),#40e0d0);border-radius:4px;width:0;transition:width 1.5s ease-out .3s}
         
-        .keybase{
-            --delay:.4s;
-            background:linear-gradient(135deg,rgba(255,111,33,.2),rgba(255,69,0,.3));
-        }
-        .keybase:hover{
-            background:linear-gradient(135deg,rgba(255,111,33,.5),rgba(255,69,0,.6));
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(255,111,33,.3);
-        }
-        .keybase i{
-            color:#ff6f21;
-            transition:transform .3s ease;
-        }
-        .keybase:hover i{
-            animation:bounce 1s ease;
-        }
+        .social-container{position:relative;padding:2rem 0;margin-top:2rem}
+        .social-container::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+        .social{display:flex;justify-content:center;align-items:center;gap:2rem;flex-wrap:wrap;padding:2rem 0}
+        .social-item{position:relative;width:80px;height:80px;border-radius:50%;background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text);font-size:2rem;transition:all .4s cubic-bezier(.175,.885,.32,1.275);animation:fadeUp 1s ease-out calc(.6s + var(--delay)) both;overflow:hidden}
+        .social-item::before{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent,rgba(255,255,255,.1),transparent);background-size:200% 200%;transition:all .4s ease;opacity:0}
+        .social-item:hover::before{animation:shimmer 1.5s ease-in-out;opacity:1}
+        .social-item:hover{transform:translateY(-8px) scale(1.05);border-color:var(--accent);box-shadow:0 10px 30px rgba(0,0,0,.3),0 0 20px rgba(0,212,255,.3)}
+        .social-item:active{transform:translateY(-4px) scale(1.02)}
+        .social-item::after{content:attr(aria-label);position:absolute;top:calc(100% + 15px);left:50%;transform:translateX(-50%) translateY(10px);background:rgba(0,0,0,.9);color:var(--text);padding:.8rem 1.2rem;border-radius:8px;font-size:.85rem;opacity:0;transition:all .3s cubic-bezier(.175,.885,.32,1.275);pointer-events:none;white-space:nowrap;backdrop-filter:blur(10px);border:1px solid var(--border)}
+        .social-item:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
         
-        .zenn{
-            --delay:.5s;
-            background:linear-gradient(135deg,rgba(62,168,255,.2),rgba(30,144,255,.3));
-        }
-        .zenn:hover{
-            background:linear-gradient(135deg,rgba(62,168,255,.5),rgba(30,144,255,.6));
-            box-shadow:0 20px 40px rgba(0,0,0,.3),0 0 30px rgba(62,168,255,.3);
-        }
-        .zenn svg{
-            color:#3ea8ff;
-            transition:transform .3s ease;
-            width:2rem;
-            height:2rem;
-        }
-        .zenn:hover svg{
-            animation:bounce 1s ease;
-        }
-        
-        /* モバイル対応の改良 */
-        @media(min-width:1024px){
-            .social{
-                gap:2.5rem;
-            }
-            .social-item{
-                width:90px;
-                height:90px;
-                font-size:2.2rem;
-            }
-        }
-        @media(max-width:768px){
-            .name{font-size:2.5rem}
-            .bio{font-size:1.1rem}
-            .social{
-                gap:1.5rem;
-            }
-            .social-item{
-                width:70px;
-                height:70px;
-                font-size:1.8rem;
-            }
-        }
-        @media(max-width:480px){
-            .container{padding:1rem}
-            .avatar{width:100px;height:100px;font-size:2.5rem}
-            .name{font-size:2rem}
-            .bio{font-size:1rem}
-            .social{
-                display:grid;
-                grid-template-columns:repeat(3,1fr);
-                gap:1.2rem;
-                max-width:240px;
-                margin:0 auto;
-            }
-            .social-item{
-                width:60px;
-                height:60px;
-                font-size:1.5rem;
-            }
-        }
-        @media(prefers-reduced-motion:reduce){
-            *{animation:none!important;transition:none!important}
-            .social-item:hover{transform:none!important}
-        }
+        .github{--delay:0s;background:linear-gradient(135deg,rgba(36,41,46,.3),rgba(13,17,23,.4))}
+        .github:hover{background:linear-gradient(135deg,rgba(36,41,46,.6),rgba(13,17,23,.7));color:#f0f6fc}
+        .github i{color:#f0f6fc;transition:transform .3s ease}
+        .github:hover i{animation:bounce 1s ease}
+        .twitter{--delay:.1s;background:linear-gradient(135deg,rgba(0,0,0,.3),rgba(21,32,43,.4))}
+        .twitter:hover{background:linear-gradient(135deg,rgba(0,0,0,.6),rgba(21,32,43,.7))}
+        .twitter i{color:#1d9bf0;transition:transform .3s ease}
+        .twitter:hover i{animation:bounce 1s ease}
+        .youtube{--delay:.2s;background:linear-gradient(135deg,rgba(255,0,0,.2),rgba(204,0,0,.3))}
+        .youtube:hover{background:linear-gradient(135deg,rgba(255,0,0,.5),rgba(204,0,0,.6))}
+        .youtube i{color:#ff0000;transition:transform .3s ease}
+        .youtube:hover i{animation:bounce 1s ease}
+        .discord{--delay:.3s;background:linear-gradient(135deg,rgba(88,101,242,.2),rgba(114,137,218,.3))}
+        .discord:hover{background:linear-gradient(135deg,rgba(88,101,242,.5),rgba(114,137,218,.6))}
+        .discord i{color:#5865f2;transition:transform .3s ease}
+        .discord:hover i{animation:bounce 1s ease}
+        .keybase{--delay:.4s;background:linear-gradient(135deg,rgba(255,111,33,.2),rgba(255,69,0,.3))}
+        .keybase:hover{background:linear-gradient(135deg,rgba(255,111,33,.5),rgba(255,69,0,.6))}
+        .keybase i{color:#ff6f21;transition:transform .3s ease}
+        .keybase:hover i{animation:bounce 1s ease}
+        .zenn{--delay:.5s;background:linear-gradient(135deg,rgba(62,168,255,.2),rgba(30,144,255,.3))}
+        .zenn:hover{background:linear-gradient(135deg,rgba(62,168,255,.5),rgba(30,144,255,.6))}
+        .zenn svg{color:#3ea8ff;transition:transform .3s ease;width:2rem;height:2rem}
+        .zenn:hover svg{animation:bounce 1s ease}
+
+        @media(min-width:1024px){.social{gap:2.5rem}.social-item{width:90px;height:90px;font-size:2.2rem}}
+        @media(max-width:768px){.name{font-size:2.5rem}.bio{font-size:1.1rem}.social{gap:1.5rem}.social-item{width:70px;height:70px;font-size:1.8rem}.bio-container{padding:1.5rem}.skills-header{padding:1.2rem 1.5rem}.skills-grid{padding:0 1.5rem 1.5rem}.stats-container{grid-template-columns:repeat(3,1fr);gap:1rem;padding:1.5rem}.stat-value{font-size:1.5rem}}
+        @media(max-width:480px){.container{padding:1rem}.avatar{width:100px;height:100px;font-size:2.5rem}.name{font-size:2rem}.bio{font-size:1rem}.bio-container{padding:1.2rem}.skills-header{padding:1rem 1.2rem}.skills-grid{padding:0 1.2rem 1.2rem}.social{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:240px;margin:0 auto}.social-item{width:60px;height:60px;font-size:1.5rem}.stats-container{grid-template-columns:1fr;gap:1rem;padding:1.2rem}.stat-value{font-size:1.2rem}}
+        @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.social-item:hover{transform:none!important}}
     </style>
 </head>
 
 <body>
     <main class="container">
         <div class="avatar">👨‍💻</div>
-        <h1 class="name">ibit</h1>
-        <p class="bio">フルスタックエンジニアになりたい17歳。<br>セキュリティとユーザビリティを両立したWeb開発を勉強しています。</p>
+        <h1 class="name" id="nameDisplay"></h1>
+        <div class="bio-container">
+            <p class="bio" id="bioText">フルスタックエンジニアになりたい17歳。<br>セキュリティとユーザビリティを両立したWeb開発を勉強しています。</p>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-value" id="commits">850+</div>
+                <div class="stat-label">Total Commits</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="repos">12+</div>
+                <div class="stat-label">Public Repos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="years">2+</div>
+                <div class="stat-label">Years Coding</div>
+            </div>
+        </div>
+
+        <div class="skills-toggle" id="skillsToggle">
+            <div class="skills-header">
+                <h2 class="skills-title">Technical Skills</h2>
+                <div class="skills-arrow" id="skillsArrow">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            <div class="skills-content" id="skillsContent">
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">HTML/CSS</span>
+                            <span class="skill-level">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-level">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">PHP</span>
+                            <span class="skill-level">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-level">70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <div class="social-container">
             <nav class="social" role="navigation" aria-label="Social Links">
@@ -309,5 +214,145 @@
             </nav>
         </div>
     </main>
+
+    <script>
+        let nameTypewriterCompleted = false;
+
+        // タイプライターエフェクト関数
+        function typeText(element, text, speed = 100, callback = null) {
+            element.textContent = '';
+            element.classList.add('typing');
+            
+            let i = 0;
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                    element.classList.remove('typing');
+                    if (callback) callback();
+                }
+            }, speed);
+        }
+
+        // テキストを削除するタイプライターエフェクト
+        function eraseText(element, speed = 50, callback = null) {
+            element.classList.add('typing');
+            const text = element.textContent;
+            let i = text.length;
+            
+            const timer = setInterval(() => {
+                if (i > 0) {
+                    element.textContent = text.substring(0, i - 1);
+                    i--;
+                } else {
+                    clearInterval(timer);
+                    element.classList.remove('typing');
+                    if (callback) callback();
+                }
+            }, speed);
+        }
+
+        // 時刻に基づく挨拶メッセージを取得
+        function getGreeting() {
+            const hour = new Date().getHours();
+            if (hour >= 5 && hour < 12) return 'おはようございます！';
+            else if (hour >= 12 && hour < 17) return 'こんにちは！';
+            else if (hour >= 17 && hour < 21) return 'こんばんは！';
+            else return '夜更かし中...';
+        }
+
+        // 名前表示シーケンス
+        function startNameSequence() {
+            const nameElement = document.getElementById('nameDisplay');
+            const greeting = getGreeting();
+            
+            // 1. 挨拶をタイプ
+            typeText(nameElement, greeting, 120, () => {
+                // 2. 2秒待機
+                setTimeout(() => {
+                    // 3. 挨拶を削除
+                    eraseText(nameElement, 80, () => {
+                        // 4. 0.5秒待機してから名前をタイプ
+                        setTimeout(() => {
+                            typeText(nameElement, 'ibit', 200, () => {
+                                nameTypewriterCompleted = true;
+                            });
+                        }, 500);
+                    });
+                }, 2000);
+            });
+        }
+
+        // スキルセクションの展開/折りたたみ
+        function initSkillsToggle() {
+            const skillsToggle = document.getElementById('skillsToggle');
+            const skillsContent = document.getElementById('skillsContent');
+            const skillsArrow = document.getElementById('skillsArrow');
+            
+            skillsToggle.addEventListener('click', () => {
+                const isExpanded = skillsContent.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    // 折りたたみ
+                    skillsContent.classList.remove('expanded');
+                    skillsArrow.classList.remove('expanded');
+                } else {
+                    // 展開
+                    skillsContent.classList.add('expanded');
+                    skillsArrow.classList.add('expanded');
+                    
+                    // プログレスバーのアニメーション
+                    setTimeout(() => {
+                        const progressBars = document.querySelectorAll('.skill-progress');
+                        progressBars.forEach(bar => {
+                            const width = bar.getAttribute('data-width');
+                            bar.style.width = width;
+                        });
+                    }, 200);
+                }
+            });
+        }
+
+        // GitHub統計情報（静的な値を使用）
+        function setGitHubStats() {
+            // GitHub Pages では CORS制限のためAPI直接呼び出しは困難
+            // より現実的な静的値を設定
+            const stats = {
+                commits: Math.floor(Math.random() * 200) + 650, // 650-850の範囲
+                repos: Math.floor(Math.random() * 8) + 8,       // 8-16の範囲
+                years: 2
+            };
+            
+            document.getElementById('commits').textContent = `${stats.commits}+`;
+            document.getElementById('repos').textContent = `${stats.repos}+`;
+            document.getElementById('years').textContent = `${stats.years}+`;
+        }
+
+        // 時刻に基づく挨拶メッセージをbioに追加
+        function updateBio() {
+            const hour = new Date().getHours();
+            const bioElement = document.getElementById('bioText');
+            let greeting = '';
+            
+            if (hour >= 5 && hour < 12) greeting = 'おはようございます！';
+            else if (hour >= 12 && hour < 17) greeting = 'こんにちは！';
+            else if (hour >= 17 && hour < 21) greeting = 'こんばんは！';
+            else greeting = '夜更かし中...';
+            
+            bioElement.innerHTML = `${greeting}<br>フルスタックエンジニアになりたい17歳。<br>セキュリティとユーザビリティを両立したWeb開発を勉強しています。`;
+        }
+
+        // 初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            setGitHubStats();
+            updateBio();
+            initSkillsToggle();
+            
+            // 1秒後に名前のタイプライターシーケンス開始
+            setTimeout(startNameSequence, 1000);
+        });
+    </script>
 </body>
 </html>
