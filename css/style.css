@@ -1,4 +1,4 @@
-/* 背景と文字色の切り替え */
+/* 背景と文字色の基本設定 */
 body {
     background-color: black;
     color: white;
@@ -6,11 +6,6 @@ body {
     margin: 0;
     padding: 20px;
     transition: background-color 0.5s, color 0.5s;
-}
-
-body.invert {
-    background-color: white;
-    color: black;
 }
 
 /* ナビゲーションバー */
@@ -27,29 +22,26 @@ body.invert {
   padding: 1rem 2rem;
   font-family: 'Inter', 'Noto Sans JP', sans-serif;
   border-bottom: 1px solid #444;
+  background-color: black;
   transition: background-color 0.5s, color 0.5s;
 }
 
-/* 黒背景モード */
-body:not(.invert) .navbar {
-  background-color: black;
-  border-bottom: 1px solid #444;
+/* nav-container にflex追加 */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-/* 白背景モード */
-body.invert .navbar {
-  background-color: white;
-  border-bottom: 1px solid #ccc;
-}
-
-/* ロゴは親の色を継承 */
+/* ロゴ */
 .nav-logo {
   font-size: 1.5rem;
   font-weight: 700;
   color: inherit;
 }
 
-/* メニューは横並び */
+/* メニュー */
 .nav-menu {
   list-style: none;
   display: flex;
@@ -58,7 +50,7 @@ body.invert .navbar {
   padding: 0;
 }
 
-/* リンクの色は親の色を継承 */
+/* リンク */
 .nav-menu li a {
   color: inherit;
   text-decoration: none;
@@ -66,13 +58,8 @@ body.invert .navbar {
   transition: color 0.3s ease;
 }
 
-/* ホバー時の色変化 */
-body:not(.invert) .nav-menu li a:hover {
+.nav-menu li a:hover {
   color: #00ffd5;
-}
-
-body.invert .nav-menu li a:hover {
-  color: #0070f3;
 }
 
 /* タイプライターエフェクト */
