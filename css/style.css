@@ -1,0 +1,126 @@
+/* 背景と文字色の切り替え */
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    margin: 0;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+body.invert {
+    background-color: white;
+    color: black;
+}
+
+/* ナビゲーションバー */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding: 1rem 2rem;
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  border-bottom: 1px solid #444;
+}
+
+/* 固定表示用追加クラス */
+.navbar.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: black; /* 黒背景で統一 */
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-menu li a:hover {
+  color: #00ffd5;
+}
+
+/* タイプライターエフェクト */
+#typewriter {
+    font-size: 3rem;
+    margin: 100px 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid white;
+}
+
+/* タイプライター効果あり */
+.typewriter {
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    font-size: 3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid white;
+    width: 0;
+    margin-top: 20px;
+    margin-left: 20px;
+    animation: typing 2s steps(10), blink 0.75s step-end infinite;
+}
+
+/* タイプライター終了後の固定表示 */
+.typewriter-done {
+    width: auto;
+    border-right: none;
+}
+
+/* アニメーション定義 */
+@keyframes typing {
+    to { width: 8ch; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* 挨拶メッセージのスタイル */
+.greeting {
+    font-size: 1.5rem;
+    margin: 60px 20px 0;
+    font-weight: 400;
+}
+
+body {
+  padding: 20px;
+}
+
+.greetings {
+  margin-top: 60px;
+  margin-left: 20px;
+}
+
+.greeting {
+  font-size: 1.5rem;
+  margin: 0.2em 0;
+}
