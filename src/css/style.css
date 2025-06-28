@@ -12,64 +12,72 @@ body {
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /* ナビゲーションバー */
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 
-  display: flex;
-  justify-content: center; /* ← centerに変更 */
-  align-items: center;
-  padding: 0; /* ← paddingを0に */
-  font-family: 'Inter', 'Noto Sans JP', sans-serif;
-  border-bottom: 1px solid #444;
-  background-color: black;
-  transition: background-color 0.5s, color 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    border-bottom: 1px solid #444;
+    background-color: black;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 /* nav-container にflex追加 */
 .nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px; /* ← 最大幅を設定 */
-  margin: 0 auto;    /* ← 中央寄せ */
-  padding: 1rem 2rem; /* ← ここにpaddingを移動 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
 }
 
 /* ロゴ */
 .nav-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: inherit;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: inherit;
+}
+
+/* ハンバーガーアイコン */
+.hamburger {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
 }
 
 /* メニュー */
 .nav-menu {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
 }
 
 /* リンク */
 .nav-menu li a {
-  color: inherit;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
+    color: inherit;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 .nav-menu li a:hover {
-  color: #00ffd5;
+    color: #00ffd5;
 }
 
 /* タイプライターエフェクト */
@@ -81,7 +89,6 @@ body {
     border-right: 2px solid currentColor;
 }
 
-/* タイプライター効果あり */
 .typewriter {
     font-family: 'Inter', 'Noto Sans JP', sans-serif;
     font-size: 3rem;
@@ -94,13 +101,11 @@ body {
     animation: typing 2s steps(10), blink 0.75s step-end infinite;
 }
 
-/* タイプライター終了後の固定表示 */
 .typewriter-done {
     width: auto;
     border-right: none;
 }
 
-/* アニメーション定義 */
 @keyframes typing {
     to { width: 8ch; }
 }
@@ -111,12 +116,34 @@ body {
 
 /* 挨拶メッセージのスタイル */
 .greetings {
-  margin-top: 80px; /* 固定ナビの高さ分 */
-  margin-left: 20px;
+    margin-top: 80px;
+    margin-left: 20px;
 }
 
 .greeting {
-  font-size: 1.5rem;
-  margin: 0.2em 0;
-  font-weight: 400;
+    font-size: 1.5rem;
+    margin: 0.2em 0;
+    font-weight: 400;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: #111;
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+    }
 }

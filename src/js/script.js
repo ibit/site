@@ -12,6 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 挨拶表示
     const greeting = getEnglishGreetingByUserTimeZone();
     document.getElementById('greeting').textContent = greeting;
+
+    // ハンバーガーメニュー開閉処理
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
 });
 
 // ユーザーのタイムゾーンに応じた英語挨拶を返す関数
@@ -29,7 +37,7 @@ function getEnglishGreetingByUserTimeZone() {
         } else if (hour >= 17 && hour < 22) {
             return "Good evening!";
         } else {
-            return "Still awake...?"; 
+            return "Still awake...?";
         }
     } catch (e) {
         return "Hello!";
