@@ -36,4 +36,3 @@ function getGreeting() {
         return "Hello there!";
     }
 }
-

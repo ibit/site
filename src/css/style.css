@@ -120,3 +120,44 @@ body {
   margin: 0.2em 0;
   font-weight: 400;
 }
+
+.site-footer {
+  width: 100%;
+  border-top: 1px solid #444;
+  background-color: black;
+  color: white;
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  flex-wrap: wrap; /* レスポンシブ対策 */
+}
+
+.footer-nav {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  color: #ccc;
+}
+
+.footer-nav a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-nav a:hover {
+  color: #fff;
+}
+
+.separator {
+  color: #555;
+}
