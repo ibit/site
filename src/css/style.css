@@ -8,6 +8,13 @@ body {
     transition: background-color 0.5s, color 0.5s;
 }
 
+/* 追加: 全体にbox-sizingを適用 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /* ナビゲーションバー */
 .navbar {
   position: fixed;
@@ -17,9 +24,9 @@ body {
   z-index: 1000;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* ← centerに変更 */
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 0; /* ← paddingを0に */
   font-family: 'Inter', 'Noto Sans JP', sans-serif;
   border-bottom: 1px solid #444;
   background-color: black;
@@ -32,6 +39,9 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  max-width: 1200px; /* ← 最大幅を設定 */
+  margin: 0 auto;    /* ← 中央寄せ */
+  padding: 1rem 2rem; /* ← ここにpaddingを移動 */
 }
 
 /* ロゴ */
