@@ -10,28 +10,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 挨拶表示
-    const greeting = getEnglishGreetingByUserTimeZone();
+    const greeting = getGreeting();
     document.getElementById('greeting').textContent = greeting;
 });
 
-// ユーザーのタイムゾーンに応じた英語挨拶を返す関数
-function getEnglishGreetingByUserTimeZone() {
+// ユーザーのタイムゾーンに応じた挨拶を返す
+function getGreeting() {
     try {
-        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const now = new Date().toLocaleString("en-US", { timeZone });
-        const local = new Date(now);
-        const hour = local.getHours();
+        const hour = Number(new Date().toLocaleString("en-US", {
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            hour: "numeric",
+            hour12: false
+        }));
 
-        if (hour >= 4 && hour < 11) {
+        if (hour >= 5 && hour < 12) {
             return "Good morning!";
-        } else if (hour >= 11 && hour < 17) {
+        } else if (hour >= 12 && hour < 17) {
             return "Good afternoon!";
-        } else if (hour >= 17 && hour < 22) {
+        } else if (hour >= 17 && hour < 23) {
             return "Good evening!";
         } else {
-            return "Still awake...?"; 
+            return "You're up late!";
         }
-    } catch (e) {
-        return "Hello!";
+    } catch {
+        return "Hello there!";
     }
 }
+
